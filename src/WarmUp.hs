@@ -50,4 +50,25 @@ fac5 = (\(n) ->
 
 -- Our official implementation of the factorial function.
 fac :: Natural -> Natural 
-fac n
+fac n = product [1..n]
+
+-- Properties
+
+prop1 :: Natural -> Bool 
+prop1 n = fac1 n == fac n
+
+prop2 :: Natural -> Bool 
+prop2 n = fac2 n == fac n
+
+prop3 :: Natural -> Bool 
+prop3 n = fac3 n == fac n
+
+prop4 :: Natural -> Bool 
+prop4 n = fac4 n == fac n
+
+prop5 :: Natural -> Bool 
+prop5 n = fac5 n == fac n
+
+prop_fac :: [a] -> Natural -> Bool 
+prop_fac [] = False
+prop_fac (x:xs) = fac n == x n == prop_fac(xs)
