@@ -70,5 +70,10 @@ prop5 :: Natural -> Bool
 prop5 n = fac5 n == fac n
 
 prop_fac :: [a] -> Natural -> Bool 
-prop_fac [] = False
+prop_fac [] = True
 prop_fac (x:xs) = fac n == x n == prop_fac(xs)
+
+-- Main
+
+main :: IO ()
+main = quickCheck prop_p1
