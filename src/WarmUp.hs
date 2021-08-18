@@ -76,4 +76,4 @@ prop_fac (x:xs) = fac n == x n == prop_fac(xs)
 -- Main
 
 main :: IO ()
-main = quickCheck prop_p1
+main = quickCheck prop1
