@@ -10,13 +10,6 @@
 module WarmUp where 
 
 import Test.QuickCheck
-    ( Arbitrary(arbitrary)
-    , classify
-    , collect
-    , elements
-    , Property
-    , quickCheck
-    )
 import Numeric.Natural ( Natural )
 ----------------------------------------------------------------------------------------------------------------------
 -- Implementations of the factorial function.
@@ -28,9 +21,9 @@ fac1 n = if n == 0
            else n * fac1 (n-1)
 
 -- [1] The Evolution of a Haskell Programmer: Junior Haskell programmer.
-fac2 :: Natural -> Natural 
-fac2  0    =  1
-fac2 (n+1) = (n+1) * fac2 n
+--fac2 :: Natural -> Natural 
+--fac2  0    =  1
+--fac2 (n+1) = (n+1) * fac2 n
  
 -- [1] The Evolution of a Haskell Programmer: Another junior Haskell programmer.
 fac3 :: Natural -> Natural 
@@ -52,28 +45,16 @@ fac5 = (\(n) ->
 fac :: Natural -> Natural 
 fac n = product [1..n]
 
--- Properties
+-- Property
 
-prop1 :: Natural -> Bool 
-prop1 n = fac1 n == fac n
+prop_fact :: [Natural -> Natural]-> Natural -> Bool 
+prop_fact [] n = True 
+prop_fact (x:xs) n = (fac n == x n ) == prop_fact xs n
 
-prop2 :: Natural -> Bool 
-prop2 n = fac2 n == fac n
-
-prop3 :: Natural -> Bool 
-prop3 n = fac3 n == fac n
-
-prop4 :: Natural -> Bool 
-prop4 n = fac4 n == fac n
-
-prop5 :: Natural -> Bool 
-prop5 n = fac5 n == fac n
-
-prop_fac :: [a] -> Natural -> Bool 
-prop_fac [] = True
-prop_fac (x:xs) = fac n == x n == prop_fac(xs)
-
--- Main
+instance Arbitrary Natural where
+    arbitrary = arbitrarySizedNatural
+    shrink = shrinkIntegral
 
 main :: IO ()
-main = quickCheck prop1
+main = quickCheck $ prop_fact[fac1,fac3,fac4,fac5]
+
